@@ -21,6 +21,8 @@ The goals / steps of this project are the following:
 
 ## Writeup / README
 
+## Setting up
+
 ### 1\. Camera Calibration using `cv2.calibrateCamera()`
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image. Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image. `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection. ![alt text][image0]
@@ -33,13 +35,13 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ## Pipeline (single images)
 
-### 1\. Provide an example of a distortion-corrected image.
+### 1\. Example image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one: ![alt text][image2]
 
-### 2\. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image. Provide an example of a binary image result.
+### 2\. Image processing details
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`). Here's an example of my output for this step. (note: this is not actually from one of the test images)
+I used a combination of color and gradient thresholds to generate a binary image (5th code cell in `solution.ipynb`). Here's an example of my output for this step. (note: this is not actually from one of the test images)
 
 ![alt text][image3]
 
