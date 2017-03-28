@@ -47,8 +47,9 @@ I used a combination of color and gradient thresholds to generate a binary image
 
 ### 3\. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook). The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points. I chose the hardcode the source and destination points in the following manner:
+I used the API in cv2 : `cv2.warpPerspective()`, which appears in code cell 6. After getting the processed image from `binary_pipeline` (code cell 5) I used the  source (`src`) and destination (`dst`) points to calculate the perspective transform matrix. I chose the hardcode the source and destination points in the following manner:
 
+TODO:
 ```
 src = np.float32(
     [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
@@ -75,19 +76,22 @@ I verified that my perspective transform was working as expected by drawing the 
 
 ![alt text][image4]
 
-### 4\. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
-
+### 4\. Identified lane-line pixels and fit their positions with a polynomial
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
 ![alt text][image5]
+TODO:The `get_pixel_in_window` in code cell 12 is a sliding window that takes image input, x coordinate of the window center, y coordinate of the window center, size of the window in pixel and then returns the coordinate of detected pixels
+After that, the `histogram_pixels()` in code cell 7 takes the input of wrapped image and used the sliding window above to generate histogram pixels as output.
+Then, the `fit_second_order_poly()` in code cell 10 get the output from `histogram_pixels` to let code cell 12 `draw_poly` to draw the line in different color.
 
-### 5\. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+### 5\.  Calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+
+TODO:I did this in code cell 19. After getting the curvature of each side, the final curvature equals the mean value of left curvature and right curvature.
 
 ### 6\. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`. Here is an example of my result on a test image:
+TODO:I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`. Here is an example of my result on a test image:
 
 ![alt text][image6]
 
