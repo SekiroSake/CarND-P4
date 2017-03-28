@@ -48,7 +48,7 @@ I used a combination of color and gradient thresholds to generate a binary image
 ### 3\. Perspective transformation
 
 I used the API in cv2 : `cv2.warpPerspective()`, which appears in code cell 6. After getting the processed image from `binary_pipeline` (code cell 5) I used the  source (`src`) and destination (`dst`) points to calculate the perspective transform matrix.
-src and dst array:
+- `src` and `dst` array:
 
  Source   | Destination
 :-------: | :---------:
