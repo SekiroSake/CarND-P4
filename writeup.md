@@ -41,36 +41,22 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 ### 2\. Image processing details
 
-I used a combination of color and gradient thresholds to generate a binary image (5th code cell in `solution.ipynb`). Here's an example of my output for this step. (note: this is not actually from one of the test images)
+I used a combination of color and gradient thresholds to generate a binary image (5th code cell in `solution.ipynb`). Here's an example of my output for this step.
 
 ![alt text][image3]
 
-### 3\. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+### 3\. Perspective transformation
 
 I used the API in cv2 : `cv2.warpPerspective()`, which appears in code cell 6. After getting the processed image from `binary_pipeline` (code cell 5) I used the  source (`src`) and destination (`dst`) points to calculate the perspective transform matrix. I chose the hardcode the source and destination points in the following manner:
 
-TODO:
-```
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
-```
-
-This resulted in the following source and destination points:
+destination points:
 
  Source   | Destination
 :-------: | :---------:
-585, 460  |   320, 0
-203, 720  |  320, 720
-1127, 720 |  960, 720
-695, 460  |   960, 0
+120, 720  |   200,720
+550, 470  |   200,0
+700, 470  |   1080,0
+1160, 720 |   1080,720
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
@@ -80,18 +66,18 @@ I verified that my perspective transform was working as expected by drawing the 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
 ![alt text][image5]
-TODO:The `get_pixel_in_window` in code cell 12 is a sliding window that takes image input, x coordinate of the window center, y coordinate of the window center, size of the window in pixel and then returns the coordinate of detected pixels
+The `get_pixel_in_window` in code cell 12 is a sliding window that takes image input, x coordinate of the window center, y coordinate of the window center, size of the window in pixel and then returns the coordinate of detected pixels
 After that, the `histogram_pixels()` in code cell 7 takes the input of wrapped image and used the sliding window above to generate histogram pixels as output.
 Then, the `fit_second_order_poly()` in code cell 10 get the output from `histogram_pixels` to let code cell 12 `draw_poly` to draw the line in different color.
 
 
 ### 5\.  Calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-TODO:I did this in code cell 19. After getting the curvature of each side, the final curvature equals the mean value of left curvature and right curvature.
+I did this in code cell 19. After getting the curvature of each side, the final radius of curvature equals to the mean value of left curvature and right curvature.
 
-### 6\. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+### 6\. Example image of identified clearly lane area.
 
-TODO:I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`. Here is an example of my result on a test image:
+I implemented this step in code cell 12 - 18. Here is an example of my result on a test image:
 
 ![alt text][image6]
 
@@ -99,7 +85,7 @@ TODO:I implemented this step in lines # through # in my code in `yet_another_fil
 
 ## Pipeline (video)
 
-### 1\. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+### After creating the image pipeline, I created a video pipeline in code cell 22 to generate a processed video
 
 Here's a [link to my video result](./project_video_output.mp4)
 
@@ -107,9 +93,12 @@ Here's a [link to my video result](./project_video_output.mp4)
 
 ## Discussion
 
-### 1\. Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
+### Problems and issues
+The problem I'm facing is lane detection, moving objects like cars or discontinuous lanes lines may affect the result of recognition.
+To solve the issue, I set an area of interests, so that unnecessary objects will be black in the undistorted image. I also increased the minimum threshold to filter out unwanted targets.
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
+### Where will the pipeline likely fail
+The pipeline still has the possibility failed to recognize discontinuous lanes
 
 [//]: # "Image References"
 [image0]: ./output_images/calibration.png "Undistorted"
