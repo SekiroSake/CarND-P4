@@ -41,21 +41,21 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 ### 2\. Image processing details
 
-I used a combination of color and gradient thresholds to generate a binary image (5th code cell in `solution.ipynb`). Here's an example of my output for this step.
+I used a combination of color and gradient thresholds to generate a binary image (6th code cell in `solution.ipynb`). Here's an example of my output for this step.
 
 ![alt text][image3]
 
 ### 3\. Perspective transformation
 
-I used the API in cv2 : `cv2.warpPerspective()`, which appears in code cell 6. After getting the processed image from `binary_pipeline` (code cell 5) I used the  source (`src`) and destination (`dst`) points to calculate the perspective transform matrix.
+I used the API in cv2 : `cv2.warpPerspective()`, which appears in code cell 7. After getting the processed image from `binary_pipeline` (code cell 5) I used the  source (`src`) and destination (`dst`) points to calculate the perspective transform matrix.
 - `src` and `dst` array:
 
  Source   | Destination
 :-------: | :---------:
-120, 720  |   200,720
-550, 470  |   200,0
-700, 470  |   1080,0
-1160, 720 |   1080,720
+580, 460  |   200,0
+710, 460  |   1080,0
+1150, 720 |   1080,720
+150, 720  |   200,720
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
@@ -72,11 +72,11 @@ Then I did some other stuff and fit my lane lines with a 2nd order polynomial ki
 
 ### 5\.  Calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in code cell 19. After getting the curvature of each side, the final radius of curvature equals to the mean value of left curvature and right curvature.
+I did this in code cell 12. The final value of the curvature was converted from pixels to meters.
 
 ### 6\. Example image of identified clearly lane area.
 
-I implemented this step in code cell 12 - 18. Here is an example of my result on a test image:
+Here is an example of my result on a test image:
 
 ![alt text][image6]
 
