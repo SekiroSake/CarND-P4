@@ -65,9 +65,9 @@ I verified that my perspective transform was working as expected by drawing the 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
 ![alt text][image5]
-- The `get_pixel_in_window` in code cell 12 is a sliding window that takes image input, x coordinate of the window center, y coordinate of the window center, size of the window in pixel and then returns the coordinate of detected pixels.
-- After that, the `histogram_pixels()` in code cell 7 takes the input of wrapped image and used the sliding window above to generate histogram pixels as output.
-- Then, the `fit_second_order_poly()` in code cell 10 get the output from `histogram_pixels` to let code cell 12 `draw_poly` to draw the line in different color.
+- The in code cell 9,10,11 a combination of functions that uses sliding window to identify peaks of histograms inside the sliding window. Function 11 (`find_lanes`) will then return the detected lane lines' coordinates.
+- After that, the `fit_lanes` in code cell 13 takes the input of wrapped image and repeat `find_lanes` with different window values to find lanes, find the coefficients of polynomials and finally do the sanity check for the lanes
+
 
 
 ### 5\.  Calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
