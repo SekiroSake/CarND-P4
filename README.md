@@ -33,3 +33,45 @@ To help the reviewer examine your work, please save examples of the output from 
 The `challenge_video.mp4` video is an extra (and optional) challenge for you if you want to test your pipeline under somewhat trickier conditions.  The `harder_challenge.mp4` video is another optional challenge and is brutal!
 
 If you're feeling ambitious (again, totally optional though), don't stop there!  We encourage you to go out and take video of your own, calibrate your camera and show us how you would implement this project from scratch!
+```
+import csv
+import cv2
+import  numpy as np
+
+lines = []
+with open('./data/driving_log.csv') as csvfile:
+    reader = csv.reader(csvfile)
+    for line in reader:
+        lines.append(line)
+
+images = []
+measurements = []
+for line in lines:
+    source_path = line[0]
+    filename = source_path.split('/')[-1]
+    current_path = './data/IMG' + filename
+    image = cv2.imread(current_path)
+    images.append(image)
+    measurement = float(line[3])
+    measurements.append(measurement)
+
+X_train = np.array(images)
+y_train = np.array(measurements)
+
+from keras.models import Sequential
+from keras.layers import Flatten, Dense
+from keras.layers.convolutional import Convolution2D
+from keras.layers.pooling
+
+model = Sequential()
+model.add(lambda x:x / 255.0, input_shape=(160,320,3))
+model.add(Flatten())
+model.add(Dense(1))
+
+model.compile(loss='mse', optimizer='adam')
+model.fit(X_train, y_train, validation_split=0.2,shuffle=True, nb_epoch=5)
+
+model.save('model.h5')
+exit()
+
+```
